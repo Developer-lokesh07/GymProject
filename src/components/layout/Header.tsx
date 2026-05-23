@@ -25,7 +25,7 @@ export const Header: React.FC = () => {
           }
         });
       },
-      { rootMargin: '-30% 0px -70% 0px' }
+      { rootMargin: '-30% 0px -70% 0px' },
     );
 
     sections.forEach((sec) => observer.observe(sec));
@@ -54,13 +54,20 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <div className={`mobile-menu ${menuOpen ? 'open' : ''}`} id="mobile-menu" role="dialog" aria-label="Navigation menu">
+      <div
+        className={`mobile-menu ${menuOpen ? 'open' : ''}`}
+        id="mobile-menu"
+        role="dialog"
+        aria-label="Navigation menu"
+      >
         {links.map((link) => (
           <a key={link.id} className="nav-link" href={`#${link.id}`} onClick={closeMobileMenu}>
             {link.name}
           </a>
         ))}
-        <a href="#contact" className="nav-cta" onClick={closeMobileMenu}>Join Now</a>
+        <a href="#contact" className="nav-cta" onClick={closeMobileMenu}>
+          Join Now
+        </a>
       </div>
 
       <header className={`nav ${scrolled ? 'scrolled' : ''}`} id="nav" role="banner">
@@ -84,12 +91,22 @@ export const Header: React.FC = () => {
           </nav>
           <div className="nav-right">
             <a href="tel:+918669084921" className="nav-phone" aria-label="Call us">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
               </svg>
               +91 86690 84921
             </a>
-            <a href="#contact" className="nav-cta">Join Now</a>
+            <a href="#contact" className="nav-cta">
+              Join Now
+            </a>
             <button
               className={`hamburger ${menuOpen ? 'open' : ''}`}
               id="hamburger"

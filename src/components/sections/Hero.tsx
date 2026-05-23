@@ -1,4 +1,3 @@
-import React from 'react';
 import type { HeroData } from '../../types';
 
 interface HeroProps {
@@ -12,14 +11,20 @@ export const Hero: React.FC<HeroProps> = ({ data }) => {
       <div className="hero-left">
         <span className="hero-eyebrow">{data.eyebrow}</span>
         <h1 className="hero-title">
-          <span className="line-1">{data.titleLines[0]}</span><br />
-          <span className="line-2">{data.titleLines[1]}</span><br />
+          <span className="line-1">{data.titleLines[0]}</span>
+          <br />
+          <span className="line-2">{data.titleLines[1]}</span>
+          <br />
           <span className="line-3">{data.titleLines[2]}</span>
         </h1>
         <p className="hero-sub">{data.subtitle}</p>
         <div className="hero-ctas">
-          <a href="#contact" className="btn-accent">Start Free Trial</a>
-          <a href="#facilities" className="btn-ghost">Explore Facilities</a>
+          <a href="#contact" className="btn-accent">
+            Start Free Trial
+          </a>
+          <a href="#facilities" className="btn-ghost">
+            Explore Facilities
+          </a>
         </div>
         <div className="hero-stats-mini" aria-label="Quick stats">
           {data.stats.map((stat, idx) => (
@@ -27,11 +32,13 @@ export const Hero: React.FC<HeroProps> = ({ data }) => {
               <span className="hero-stat-num">
                 {stat.value.includes('.') ? (
                   <>
-                    {stat.value.split('.')[0]}.<span>{stat.value.split('.')[1]}</span>{stat.suffix}
+                    {stat.value.split('.')[0]}.<span>{stat.value.split('.')[1]}</span>
+                    {stat.suffix}
                   </>
                 ) : (
                   <>
-                    {stat.value}<span>{stat.suffix}</span>
+                    {stat.value}
+                    <span>{stat.suffix}</span>
                   </>
                 )}
               </span>
@@ -41,21 +48,16 @@ export const Hero: React.FC<HeroProps> = ({ data }) => {
         </div>
       </div>
       <div className="hero-right" aria-hidden="true">
-        <div className="hero-illus">
-          <div className="illus-wrap">
-            <div className="illus-ring-2"></div>
-            <div className="illus-ring"></div>
-            <div className="db-bar"></div>
-            <div className="db-plate left-1"></div>
-            <div className="db-plate left-2"></div>
-            <div className="db-plate right-1"></div>
-            <div className="db-plate right-2"></div>
-            <div className="geo-1"></div>
-            <div className="geo-2"></div>
-            <div className="geo-3"></div>
-            <div className="geo-4"></div>
-          </div>
-        </div>
+        {/* Premium gym photography replaces the old CSS geometry */}
+        <img
+          src="/images/hero-gym-floor.png"
+          alt=""
+          className="hero-photo"
+          loading="eager"
+          fetchPriority="high"
+        />
+        {/* Gradient overlay for readability */}
+        <div className="hero-photo-overlay"></div>
         <div className="hero-badge-stamp" aria-hidden="true">
           <span className="stamp-num">{data.badge.rating}</span>
           <span className="stamp-stars">{data.badge.stars}</span>

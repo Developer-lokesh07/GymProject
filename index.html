@@ -1,21 +1,147 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+    <meta name="theme-color" content="#0D0D0D" />
+
     <!-- SEO Meta Tags -->
-    <title>Conqueror Fitness Hub — Rise. Conquer. Transform.</title>
-    <meta name="description" content="Conqueror Fitness Hub — Jalgaon's most premium gym. Fully AC, steam room, advanced machines, certified trainers. 4.9★ Google rated.">
-    <meta name="keywords" content="gym jalgaon, fitness hub jalgaon, best gym in jalgaon, fitness center jalgaon">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <title>Conqueror Fitness Hub — Rise. Conquer. Transform. | Jalgaon's Premium Gym</title>
+    <meta
+      name="description"
+      content="Conqueror Fitness Hub — Jalgaon's most premium gym. Fully AC, steam room, advanced machines, certified trainers. 4.9★ Google rated. Memberships from ₹800/month."
+    />
+    <meta
+      name="keywords"
+      content="gym jalgaon, fitness hub jalgaon, best gym in jalgaon, fitness center jalgaon, jalgaon gym membership, AC gym jalgaon, steam room gym jalgaon"
+    />
+    <meta name="author" content="Conqueror Fitness Hub" />
+    <link rel="canonical" href="https://conquerorfitness.com/" />
+
+    <!-- OpenGraph for WhatsApp / Facebook / Social Sharing -->
+    <meta property="og:title" content="Conqueror Fitness Hub — Jalgaon's #1 Premium Gym" />
+    <meta
+      property="og:description"
+      content="Fully AC, steam room, advanced machines, and certified coaches. 4.9★ Google rated. Memberships from ₹800/month."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://conquerorfitness.com/" />
+    <meta property="og:site_name" content="Conqueror Fitness Hub" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Conqueror Fitness Hub — Jalgaon's Premium Gym" />
+    <meta
+      name="twitter:description"
+      content="Fully AC, steam room, advanced machines. 4.9★ rated. From ₹800/month."
+    />
+
+    <!-- JSON-LD Structured Data for Local Business SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ExerciseGym",
+        "name": "Conqueror Fitness Hub",
+        "description": "Jalgaon's most premium fitness club — fully AC, steam room, advanced machines, and certified coaches who deliver real results.",
+        "url": "https://conquerorfitness.com/",
+        "telephone": "+918669084921",
+        "priceRange": "₹800 - ₹9500",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "108",
+          "bestRating": "5"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Madhuvimal Plaza, 2nd Floor, Opp. Dadawadi Temple (Dalchini Hotel), Dadawadi",
+          "addressLocality": "Jalgaon",
+          "addressRegion": "MH",
+          "postalCode": "425001",
+          "addressCountry": "IN"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "21.0077",
+          "longitude": "75.5626"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "05:00",
+            "closes": "11:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "16:00",
+            "closes": "21:00"
+          }
+        ],
+        "amenityFeature": [
+          { "@type": "LocationFeatureSpecification", "name": "Air Conditioning", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Steam Room", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Personal Training", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Free Weights", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Cardio Equipment", "value": true }
+        ],
+        "sameAs": [
+          "https://instagram.com/conqueror_fitness_hub",
+          "https://maps.app.goo.gl/Dt7G9R6vpVnsK47H9"
+        ]
+      }
+    </script>
+
+    <!-- Google Fonts (preconnect for performance) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <!-- Skip to Main Content link for keyboard/screen-reader users -->
+    <a
+      href="#hero"
+      class="sr-only"
+      style="
+        position: absolute;
+        left: -9999px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      "
+      onfocus="
+        this.style.position = 'fixed';
+        this.style.left = '16px';
+        this.style.top = '16px';
+        this.style.width = 'auto';
+        this.style.height = 'auto';
+        this.style.overflow = 'visible';
+        this.style.zIndex = '10000';
+        this.style.background = '#C8F542';
+        this.style.color = '#0D0D0D';
+        this.style.padding = '12px 24px';
+        this.style.borderRadius = '4px';
+        this.style.fontSize = '14px';
+        this.style.fontWeight = '700';
+      "
+      onblur="
+        this.style.position = 'absolute';
+        this.style.left = '-9999px';
+        this.style.width = '1px';
+        this.style.height = '1px';
+        this.style.overflow = 'hidden';
+      "
+    >
+      Skip to Main Content
+    </a>
+
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

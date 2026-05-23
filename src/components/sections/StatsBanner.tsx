@@ -17,7 +17,7 @@ export const StatsBanner: React.FC<StatsBannerProps> = ({ data }) => {
           observer.disconnect();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -41,7 +41,12 @@ export const StatsBanner: React.FC<StatsBannerProps> = ({ data }) => {
 };
 
 // Extracted the count-up logic into a clean React component
-const StatCounter: React.FC<{ target: number; isDecimal: boolean; suffix: string; start: boolean }> = ({ target, isDecimal, suffix, start }) => {
+const StatCounter: React.FC<{
+  target: number;
+  isDecimal: boolean;
+  suffix: string;
+  start: boolean;
+}> = ({ target, isDecimal, suffix, start }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -49,7 +54,7 @@ const StatCounter: React.FC<{ target: number; isDecimal: boolean; suffix: string
     let current = 0;
     const duration = 1800;
     const step = target / (duration / 16);
-    
+
     const timer = setInterval(() => {
       current = Math.min(current + step, target);
       setCount(current);
@@ -57,7 +62,7 @@ const StatCounter: React.FC<{ target: number; isDecimal: boolean; suffix: string
         clearInterval(timer);
       }
     }, 16);
-    
+
     return () => clearInterval(timer);
   }, [start, target]);
 

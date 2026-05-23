@@ -23,7 +23,13 @@
     "badge": { "rating": "4.9", "stars": "★★★★★", "text": "108 Reviews" }
   },
   "marquee": [
-    "FULLY AIR CONDITIONED", "STEAM ROOM", "ADVANCED MACHINES", "CERTIFIED TRAINERS", "4.9★ GOOGLE RATING", "MORNING & EVENING BATCHES", "JALGAON'S #1 GYM"
+    "FULLY AIR CONDITIONED",
+    "STEAM ROOM",
+    "ADVANCED MACHINES",
+    "CERTIFIED TRAINERS",
+    "4.9★ GOOGLE RATING",
+    "MORNING & EVENING BATCHES",
+    "JALGAON'S #1 GYM"
   ],
   "statsBanner": [
     { "target": 4.9, "isDecimal": true, "suffix": "", "label": "Google Rating" },
@@ -39,10 +45,26 @@
       "Whether you're a beginner starting your first session or an athlete training for competition, our environment elevates every workout. No compromises. No excuses."
     ],
     "features": [
-      { "icon": "❄️", "title": "Full AC Facility", "description": "Comfortable every season — train in ideal conditions always." },
-      { "icon": "♨️", "title": "Steam Room", "description": "Premium post-workout recovery for faster muscle repair." },
-      { "icon": "🏋️", "title": "Advanced Machines", "description": "Latest equipment for every muscle group, always maintained." },
-      { "icon": "👨‍🏫", "title": "Expert Trainers", "description": "Certified coaches focused 100% on your results." }
+      {
+        "icon": "❄️",
+        "title": "Full AC Facility",
+        "description": "Comfortable every season — train in ideal conditions always."
+      },
+      {
+        "icon": "♨️",
+        "title": "Steam Room",
+        "description": "Premium post-workout recovery for faster muscle repair."
+      },
+      {
+        "icon": "🏋️",
+        "title": "Advanced Machines",
+        "description": "Latest equipment for every muscle group, always maintained."
+      },
+      {
+        "icon": "👨‍🏫",
+        "title": "Expert Trainers",
+        "description": "Certified coaches focused 100% on your results."
+      }
     ],
     "badge": { "rating": "4.9★", "text": "Google Verified" }
   },
@@ -51,8 +73,18 @@
     "titleHtml": "Built Around<br><em>Your Schedule.</em>",
     "description": "Two dedicated batches — morning for early risers, evening for working professionals. Come when it suits you.",
     "batches": [
-      { "name": "Morning Batch", "time": "5:00 AM – 11:00 AM", "note": "6 hours of morning excellence. Best for students, early risers, and those who train before the city wakes up.", "isActive": true },
-      { "name": "Evening Batch", "time": "4:00 PM – 9:00 PM", "note": "5 high-energy evening hours. Perfect for working professionals who own their post-work hours.", "isActive": false }
+      {
+        "name": "Morning Batch",
+        "time": "5:00 AM – 11:00 AM",
+        "note": "6 hours of morning excellence. Best for students, early risers, and those who train before the city wakes up.",
+        "isActive": true
+      },
+      {
+        "name": "Evening Batch",
+        "time": "4:00 PM – 9:00 PM",
+        "note": "5 high-energy evening hours. Perfect for working professionals who own their post-work hours.",
+        "isActive": false
+      }
     ],
     "closedNote": "Sunday: The gym is closed. Rest day — your muscles will thank you for it."
   },
@@ -60,12 +92,48 @@
     "eyebrow": "What We Offer",
     "titleHtml": "World-Class<br><em>Facilities.</em>",
     "items": [
-      { "num": "01", "icon": "❄️", "title": "AC Gym Floor", "desc": "Every square foot is air-conditioned. Train at 5 AM or 8 PM — the environment is always ideal, even during peak Maharashtra summer.", "badge": "All Plans" },
-      { "num": "02", "icon": "♨️", "title": "Steam Room", "desc": "Premium steam therapy accelerates muscle recovery, improves circulation, and leaves you completely refreshed after every intense session.", "badge": "Add-on Available" },
-      { "num": "03", "icon": "🏋️", "title": "Advanced Equipment", "desc": "Latest machines targeting every muscle group. Properly maintained, always functional — zero compromises on your workout quality.", "badge": "All Plans" },
-      { "num": "04", "icon": "🥊", "title": "Free Weights Zone", "desc": "Complete collection of dumbbells, barbells, kettlebells, and Olympic plates. A dedicated zone built for serious strength training.", "badge": "All Plans" },
-      { "num": "05", "icon": "🏃", "title": "Cardio Section", "desc": "Treadmills, ellipticals, and exercise bikes — a full cardio zone for fat burn and endurance. Included in every membership at no extra charge.", "badge": "Free with All Plans" },
-      { "num": "06", "icon": "👨‍🏫", "title": "Personal Training", "desc": "Certified trainers provide 1-on-1 guidance with custom workout plans, real-time form correction, and consistent motivation tailored to your goals.", "badge": "Available Separately" }
+      {
+        "num": "01",
+        "icon": "❄️",
+        "title": "AC Gym Floor",
+        "desc": "Every square foot is air-conditioned. Train at 5 AM or 8 PM — the environment is always ideal, even during peak Maharashtra summer.",
+        "badge": "All Plans"
+      },
+      {
+        "num": "02",
+        "icon": "♨️",
+        "title": "Steam Room",
+        "desc": "Premium steam therapy accelerates muscle recovery, improves circulation, and leaves you completely refreshed after every intense session.",
+        "badge": "Add-on Available"
+      },
+      {
+        "num": "03",
+        "icon": "🏋️",
+        "title": "Advanced Equipment",
+        "desc": "Latest machines targeting every muscle group. Properly maintained, always functional — zero compromises on your workout quality.",
+        "badge": "All Plans"
+      },
+      {
+        "num": "04",
+        "icon": "🥊",
+        "title": "Free Weights Zone",
+        "desc": "Complete collection of dumbbells, barbells, kettlebells, and Olympic plates. A dedicated zone built for serious strength training.",
+        "badge": "All Plans"
+      },
+      {
+        "num": "05",
+        "icon": "🏃",
+        "title": "Cardio Section",
+        "desc": "Treadmills, ellipticals, and exercise bikes — a full cardio zone for fat burn and endurance. Included in every membership at no extra charge.",
+        "badge": "Free with All Plans"
+      },
+      {
+        "num": "06",
+        "icon": "👨‍🏫",
+        "title": "Personal Training",
+        "desc": "Certified trainers provide 1-on-1 guidance with custom workout plans, real-time form correction, and consistent motivation tailored to your goals.",
+        "badge": "Available Separately"
+      }
     ]
   },
   "pricing": {
@@ -78,7 +146,12 @@
         "name": "Basic",
         "amount": "₹800",
         "per": "per month",
-        "features": ["Full Gym Access (Both Batches)", "AC Facility Included", "Cardio Zone — No Extra Charge", "Trainer Guidance & Support"],
+        "features": [
+          "Full Gym Access (Both Batches)",
+          "AC Facility Included",
+          "Cardio Zone — No Extra Charge",
+          "Trainer Guidance & Support"
+        ],
         "isFeatured": false,
         "ctaText": "Enquire Now",
         "value": "Basic – ₹800/mo"
@@ -88,7 +161,13 @@
         "name": "Premium",
         "amount": "₹1,200",
         "per": "per month",
-        "features": ["Everything in Basic", "2 Personal Training Sessions / Month", "Diet & Nutrition Consultation", "Steam Room Access", "Body Progress Tracking"],
+        "features": [
+          "Everything in Basic",
+          "2 Personal Training Sessions / Month",
+          "Diet & Nutrition Consultation",
+          "Steam Room Access",
+          "Body Progress Tracking"
+        ],
         "isFeatured": true,
         "ctaText": "Join Now",
         "value": "Premium – ₹1,200/mo"
@@ -98,7 +177,12 @@
         "name": "Quarterly",
         "amount": "₹3,200",
         "per": "3 months · save ₹400",
-        "features": ["Everything in Premium", "Save ₹400 vs Monthly Rate", "Priority Trainer Scheduling", "Quarterly Body Assessment"],
+        "features": [
+          "Everything in Premium",
+          "Save ₹400 vs Monthly Rate",
+          "Priority Trainer Scheduling",
+          "Quarterly Body Assessment"
+        ],
         "isFeatured": false,
         "ctaText": "Enquire Now",
         "value": "Quarterly – ₹3,200"
@@ -108,7 +192,12 @@
         "name": "Annual",
         "amount": "₹9,500",
         "per": "12 months · save ₹2,500",
-        "features": ["All Premium Benefits Included", "Save ₹2,500 vs Monthly", "Steam Room Fully Included", "Unlimited PT Guidance"],
+        "features": [
+          "All Premium Benefits Included",
+          "Save ₹2,500 vs Monthly",
+          "Steam Room Fully Included",
+          "Unlimited PT Guidance"
+        ],
         "isFeatured": false,
         "ctaText": "Enquire Now",
         "value": "Annual – ₹9,500"
@@ -125,12 +214,48 @@
     "titleHtml": "Real Members.<br><em>Real Results.</em>",
     "overall": { "rating": "4.9", "stars": "★★★★★", "count": "108 Verified Google Reviews" },
     "items": [
-      { "stars": "★★★★★", "quote": "\"Jalgaon's best gym without a doubt. The equipment is top-class and the trainers are genuinely helpful. AC makes every session comfortable even in peak summer.\"", "authorInitials": "RK", "authorName": "Rahul Korde", "date": "Google · 3 months ago" },
-      { "stars": "★★★★★", "quote": "\"The steam room facility is excellent — after an intense workout it's perfect for recovery. Trainers are knowledgeable and genuinely invested in your progress.\"", "authorInitials": "PS", "authorName": "Priya Sonawane", "date": "Google · 1 month ago" },
-      { "stars": "★★★★★", "quote": "\"Lost 8 kg in 3 months. The morning batch starting at 5 AM is perfect for my schedule. Great atmosphere and community — nothing else in Jalgaon comes close.\"", "authorInitials": "AM", "authorName": "Amit Mahajan", "date": "Google · 2 months ago" },
-      { "stars": "★★★★★", "quote": "\"All machines are advanced and always well-maintained. Never had to wait for something to get fixed. Cleanliness standards are absolutely exceptional.\"", "authorInitials": "SB", "authorName": "Saurabh Borse", "date": "Google · 5 months ago" },
-      { "stars": "★★★★★", "quote": "\"The trainer corrected my form completely. My results improved dramatically after the very first month. Best investment I have ever made for my health.\"", "authorInitials": "ND", "authorName": "Neha Deshmukh", "date": "Google · 4 months ago" },
-      { "stars": "★★★★★", "quote": "\"Affordable pricing with truly premium facilities. Honestly, nothing in Jalgaon comes close. Very happy I joined — highly recommended to absolutely everyone.\"", "authorInitials": "VJ", "authorName": "Vishal Jadhav", "date": "Google · 6 months ago" }
+      {
+        "stars": "★★★★★",
+        "quote": "\"Jalgaon's best gym without a doubt. The equipment is top-class and the trainers are genuinely helpful. AC makes every session comfortable even in peak summer.\"",
+        "authorInitials": "RK",
+        "authorName": "Rahul Korde",
+        "date": "Google · 3 months ago"
+      },
+      {
+        "stars": "★★★★★",
+        "quote": "\"The steam room facility is excellent — after an intense workout it's perfect for recovery. Trainers are knowledgeable and genuinely invested in your progress.\"",
+        "authorInitials": "PS",
+        "authorName": "Priya Sonawane",
+        "date": "Google · 1 month ago"
+      },
+      {
+        "stars": "★★★★★",
+        "quote": "\"Lost 8 kg in 3 months. The morning batch starting at 5 AM is perfect for my schedule. Great atmosphere and community — nothing else in Jalgaon comes close.\"",
+        "authorInitials": "AM",
+        "authorName": "Amit Mahajan",
+        "date": "Google · 2 months ago"
+      },
+      {
+        "stars": "★★★★★",
+        "quote": "\"All machines are advanced and always well-maintained. Never had to wait for something to get fixed. Cleanliness standards are absolutely exceptional.\"",
+        "authorInitials": "SB",
+        "authorName": "Saurabh Borse",
+        "date": "Google · 5 months ago"
+      },
+      {
+        "stars": "★★★★★",
+        "quote": "\"The trainer corrected my form completely. My results improved dramatically after the very first month. Best investment I have ever made for my health.\"",
+        "authorInitials": "ND",
+        "authorName": "Neha Deshmukh",
+        "date": "Google · 4 months ago"
+      },
+      {
+        "stars": "★★★★★",
+        "quote": "\"Affordable pricing with truly premium facilities. Honestly, nothing in Jalgaon comes close. Very happy I joined — highly recommended to absolutely everyone.\"",
+        "authorInitials": "VJ",
+        "authorName": "Vishal Jadhav",
+        "date": "Google · 6 months ago"
+      }
     ]
   },
   "contactOptions": {
@@ -138,7 +263,13 @@
     "titleHtml": "Come Visit.<br><em>We'll Show You Around.</em>",
     "formOptions": {
       "batches": ["Morning (5AM–11AM)", "Evening (4PM–9PM)", "Either works"],
-      "goals": ["Weight Loss", "Build Muscle", "Improve Fitness & Stamina", "Sports Performance", "General Health & Wellbeing"]
+      "goals": [
+        "Weight Loss",
+        "Build Muscle",
+        "Improve Fitness & Stamina",
+        "Sports Performance",
+        "General Health & Wellbeing"
+      ]
     }
   },
   "footer": {

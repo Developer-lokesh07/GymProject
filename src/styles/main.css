@@ -1,31 +1,33 @@
 :root {
   /* ─── DESIGN TOKENS ─── */
-  --bg-primary: #0D0D0D;
+  --bg-primary: #0d0d0d;
   --bg-surface: #141414;
-  --bg-elevated: #1C1C1C;
-  
-  --accent: #C8F542;
-  --accent-dim: #9DB832;
-  
-  --text-primary: #F5F5F0;
+  --bg-elevated: #1c1c1c;
+
+  --accent: #c8f542;
+  --accent-dim: #9db832;
+
+  --text-primary: #f5f5f0;
   --text-secondary: #888882;
-  --text-tertiary: #94948E; /* Updated from #555550 for WCAG AA Contrast */
-  
-  --border: rgba(255,255,255,0.07);
-  --border-hover: rgba(200,245,66,0.4);
-  
-  --green-wa: #25D366;
-  
+  --text-tertiary: #94948e; /* Updated from #555550 for WCAG AA Contrast */
+
+  --border: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(200, 245, 66, 0.4);
+
+  --green-wa: #25d366;
+
   --ff-display: 'Bebas Neue', sans-serif;
   --ff-body: 'DM Sans', sans-serif;
   --ff-serif: 'DM Serif Display', serif;
-  
+
   --transition: 0.2s ease;
   --nav-h: 72px;
 }
 
 /* ─── RESET ─── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -67,12 +69,18 @@ button {
 }
 
 /* Accessibility: Focus states */
-button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: var(--ff-body);
 }
 
@@ -91,14 +99,16 @@ input, select, textarea {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0,0,0,0);
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }
 
 .reveal {
   opacity: 0;
   transform: translateY(32px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
 }
 
 .reveal.visible {
@@ -106,10 +116,18 @@ input, select, textarea {
   transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
 
 /* ─── SECTION COMMON ─── */
 .section-eyebrow {
@@ -148,20 +166,54 @@ input, select, textarea {
 
 /* ─── ANIMATIONS ─── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(28px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes marqueeScroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
-@media(max-width: 768px) {
-  :root { --nav-h: 60px; }
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Disabled button state */
+button:disabled,
+.f-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --nav-h: 60px;
+  }
 }
