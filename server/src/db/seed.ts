@@ -73,7 +73,14 @@ async function seed() {
     { key: 'contactInfo_instagram', val: pageData.contactInfo.instagram, cat: 'contact' },
     { key: 'contactInfo_instagramUrl', val: pageData.contactInfo.instagramUrl, cat: 'contact' },
     { key: 'contactInfo_mapUrl', val: pageData.contactInfo.mapUrl, cat: 'contact' },
-    { key: 'timings_closedNote', val: pageData.timings.closedNote, cat: 'timings' }
+    { key: 'timings_closedNote', val: pageData.timings.closedNote, cat: 'timings' },
+    { key: 'contactOptions_eyebrow', val: pageData.contactOptions.eyebrow, cat: 'contactOptions' },
+    { key: 'contactOptions_titleHtml', val: pageData.contactOptions.titleHtml, cat: 'contactOptions' },
+    { key: 'contactOptions_goals', val: JSON.stringify(pageData.contactOptions.formOptions.goals), cat: 'contactOptions' },
+    { key: 'footer_brandDesc', val: pageData.footer.brandDesc, cat: 'footer' },
+    { key: 'footer_copy', val: pageData.footer.copy, cat: 'footer' },
+    { key: 'footer_exploreLinks', val: JSON.stringify(pageData.footer.links.Explore), cat: 'footer' },
+    { key: 'footer_programLinks', val: JSON.stringify(pageData.footer.links.Programs), cat: 'footer' }
   ];
   for (const s of settings) {
     await connection.query(

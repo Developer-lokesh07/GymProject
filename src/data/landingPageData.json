@@ -4,8 +4,8 @@
     "description": "Conqueror Fitness Hub — Jalgaon's most premium gym. Fully AC, steam room, advanced machines, certified trainers. 4.9★ Google rated."
   },
   "contactInfo": {
-    "phone": "+91 86690 84921",
-    "whatsappUrl": "https://wa.me/918669084921",
+    "phone": "+91 93705 27547",
+    "whatsappUrl": "https://wa.me/919370527547",
     "address": "Madhuvimal Plaza, 2nd Floor, Opp. Dadawadi Temple (Dalchini Hotel), Dadawadi, Jalgaon — 425001, MH",
     "instagram": "@conqueror_fitness_hub",
     "instagramUrl": "https://instagram.com/conqueror_fitness_hub",
@@ -13,14 +13,34 @@
   },
   "hero": {
     "eyebrow": "Jalgaon's Premier Fitness Club",
-    "titleLines": ["RISE.", "CONQUER.", "TRANSFORM."],
+    "titleLines": [
+      "RISE.",
+      "CONQUER.",
+      "TRANSFORM."
+    ],
     "subtitle": "Jalgaon's most premium fitness club — fully AC, steam room, advanced machines, and certified coaches who deliver real results.",
     "stats": [
-      { "value": "4.9", "suffix": "★", "label": "Google Rating" },
-      { "value": "108", "suffix": "+", "label": "Reviews" },
-      { "value": "500", "suffix": "+", "label": "Members" }
+      {
+        "value": "4.9",
+        "suffix": "★",
+        "label": "Google Rating"
+      },
+      {
+        "value": "108",
+        "suffix": "+",
+        "label": "Reviews"
+      },
+      {
+        "value": "500",
+        "suffix": "+",
+        "label": "Members"
+      }
     ],
-    "badge": { "rating": "4.9", "stars": "★★★★★", "text": "108 Reviews" }
+    "badge": {
+      "rating": "4.9",
+      "stars": "★★★★★",
+      "text": "108 Reviews"
+    }
   },
   "marquee": [
     "FULLY AIR CONDITIONED",
@@ -32,10 +52,30 @@
     "JALGAON'S #1 GYM"
   ],
   "statsBanner": [
-    { "target": 4.9, "isDecimal": true, "suffix": "", "label": "Google Rating" },
-    { "target": 108, "isDecimal": false, "suffix": "+", "label": "Verified Reviews" },
-    { "target": 500, "isDecimal": false, "suffix": "+", "label": "Active Members" },
-    { "target": 9, "isDecimal": false, "suffix": " Yrs", "label": "Of Excellence" }
+    {
+      "target": 4.9,
+      "isDecimal": true,
+      "suffix": "",
+      "label": "Google Rating"
+    },
+    {
+      "target": 108,
+      "isDecimal": false,
+      "suffix": "+",
+      "label": "Verified Reviews"
+    },
+    {
+      "target": 500,
+      "isDecimal": false,
+      "suffix": "+",
+      "label": "Active Members"
+    },
+    {
+      "target": 9,
+      "isDecimal": false,
+      "suffix": " Yrs",
+      "label": "Of Excellence"
+    }
   ],
   "about": {
     "eyebrow": "About Us",
@@ -66,7 +106,10 @@
         "description": "Certified coaches focused 100% on your results."
       }
     ],
-    "badge": { "rating": "4.9★", "text": "Google Verified" }
+    "badge": {
+      "rating": "4.9★",
+      "text": "Google Verified"
+    }
   },
   "timings": {
     "eyebrow": "Gym Timings",
@@ -212,7 +255,11 @@
   "reviews": {
     "eyebrow": "Member Reviews",
     "titleHtml": "Real Members.<br><em>Real Results.</em>",
-    "overall": { "rating": "4.9", "stars": "★★★★★", "count": "108 Verified Google Reviews" },
+    "overall": {
+      "rating": "4.9",
+      "stars": "★★★★★",
+      "count": "108 Verified Google Reviews"
+    },
     "items": [
       {
         "stars": "★★★★★",
@@ -262,7 +309,11 @@
     "eyebrow": "Get in Touch",
     "titleHtml": "Come Visit.<br><em>We'll Show You Around.</em>",
     "formOptions": {
-      "batches": ["Morning (5AM–11AM)", "Evening (4PM–9PM)", "Either works"],
+      "batches": [
+        "Morning (5AM–11AM)",
+        "Evening (4PM–9PM)",
+        "Either works"
+      ],
       "goals": [
         "Weight Loss",
         "Build Muscle",
@@ -276,18 +327,48 @@
     "brandDesc": "Jalgaon's #1 premium fitness hub. Advanced equipment, certified trainers, fully AC with steam room — everything you need, all under one roof.",
     "links": {
       "Explore": [
-        { "name": "About Us", "url": "#about" },
-        { "name": "Facilities", "url": "#facilities" },
-        { "name": "Timings", "url": "#timings" },
-        { "name": "Membership", "url": "#pricing" },
-        { "name": "Reviews", "url": "#reviews" }
+        {
+          "name": "About Us",
+          "url": "#about"
+        },
+        {
+          "name": "Facilities",
+          "url": "#facilities"
+        },
+        {
+          "name": "Timings",
+          "url": "#timings"
+        },
+        {
+          "name": "Membership",
+          "url": "#pricing"
+        },
+        {
+          "name": "Reviews",
+          "url": "#reviews"
+        }
       ],
       "Programs": [
-        { "name": "Weight Loss", "url": "#contact" },
-        { "name": "Muscle Building", "url": "#contact" },
-        { "name": "Personal Training", "url": "#contact" },
-        { "name": "Diet Consultation", "url": "#contact" },
-        { "name": "Steam Therapy", "url": "#contact" }
+        {
+          "name": "Weight Loss",
+          "url": "#contact"
+        },
+        {
+          "name": "Muscle Building",
+          "url": "#contact"
+        },
+        {
+          "name": "Personal Training",
+          "url": "#contact"
+        },
+        {
+          "name": "Diet Consultation",
+          "url": "#contact"
+        },
+        {
+          "name": "Steam Therapy",
+          "url": "#contact"
+        }
       ]
     },
     "copy": "© 2026 Conqueror Fitness Hub, Jalgaon. All rights reserved."

@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps, @typescript-eslint/no-unused-vars */
+/* eslint-disable react-hooks/set-state-in-effect, react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -36,7 +36,8 @@ function AppContent() {
 
   // Dynamic state for landing page content fetched from MySQL
   // Detect Vitest environment to bypass loading delay and prevent test assertion failures
-  const isTestEnv = typeof process !== 'undefined' && (process.env.NODE_ENV === 'test' || process.env.VITEST === 'true');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const isTestEnv = typeof (globalThis as any).vi !== 'undefined' || (import.meta as any).env?.MODE === 'test';
   const [landingData, setLandingData] = useState<LandingPageData | null>(
     isTestEnv ? staticFallbackData : null
   );
@@ -114,12 +115,7 @@ function AppContent() {
     setIsAdminAuthenticated(false);
   };
 
-  // Navigating dynamically between SPA paths
-  const navigateTo = (path: string) => {
-    window.history.pushState({}, '', path);
-    setCurrentPath(path);
-    setIsAdminAuthenticated(isAuthenticated());
-  };
+
 
   // 1. Rendering Loader State
   if (loading) {
@@ -175,7 +171,7 @@ function AppContent() {
   return (
     <>
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
-      <Header />
+      <Header phone={safeData.contactInfo.phone} />
       <main>
         <Hero data={safeData.hero} />
         <Marquee items={safeData.marquee} />
@@ -200,7 +196,7 @@ function AppContent() {
 
         <div className="map-strip" aria-label="Location information">
           <div className="map-address">
-            📍 Madhuvimal Plaza, 2nd Floor, Opp. Dadawadi Temple (Dalchini Hotel), Dadawadi, Jalgaon
+            📍 {safeData.contactInfo.address}
           </div>
           <a
             href={safeData.contactInfo.mapUrl}
@@ -212,7 +208,7 @@ function AppContent() {
           </a>
         </div>
       </main>
-      <Footer data={safeData.footer} />
+      <Footer data={safeData.footer} info={safeData.contactInfo} />
 
       {/* Floating WhatsApp Button */}
       <a

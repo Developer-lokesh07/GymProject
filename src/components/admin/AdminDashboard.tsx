@@ -41,6 +41,19 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     subtitle: initialLandingPageData?.pricing?.subtitle || ''
   });
 
+  const [settingsForm, setSettingsForm] = useState({
+    contactInfo_phone: initialLandingPageData?.contactInfo?.phone || '',
+    contactInfo_whatsappUrl: initialLandingPageData?.contactInfo?.whatsappUrl || '',
+    contactInfo_address: initialLandingPageData?.contactInfo?.address || '',
+    contactInfo_instagram: initialLandingPageData?.contactInfo?.instagram || '',
+    contactInfo_instagramUrl: initialLandingPageData?.contactInfo?.instagramUrl || '',
+    contactInfo_mapUrl: initialLandingPageData?.contactInfo?.mapUrl || '',
+    footer_brandDesc: initialLandingPageData?.footer?.brandDesc || '',
+    footer_copy: initialLandingPageData?.footer?.copy || '',
+    contactOptions_eyebrow: initialLandingPageData?.contactOptions?.eyebrow || '',
+    contactOptions_titleHtml: initialLandingPageData?.contactOptions?.titleHtml || ''
+  });
+
   const [notification, setNotification] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const [actionLoading, setActionLoading] = useState(false);
 
@@ -119,6 +132,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       onRefreshLandingPage();
     } catch (err: any) {
       triggerNotification(err.message || 'Failed to update Pricing headers.', 'error');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleUpdateSettings = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setActionLoading(true);
+    try {
+      await updateSectionData('settings', settingsForm);
+      triggerNotification('General & Footer settings successfully updated in MySQL database!', 'success');
+      onRefreshLandingPage();
+    } catch (err: any) {
+      triggerNotification(err.message || 'Failed to update General settings.', 'error');
     } finally {
       setActionLoading(false);
     }
@@ -429,6 +456,111 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 </div>
                 <button type="submit" className="f-submit inline" disabled={actionLoading}>
                   {actionLoading ? 'Saving...' : 'Update Pricing Content'}
+                </button>
+              </form>
+            </div>
+
+            <div className="editor-card">
+              <h4>⚙️ General & Footer Settings</h4>
+              <form onSubmit={handleUpdateSettings} className="crud-form">
+                <div className="f-row">
+                  <div className="f-group">
+                    <label className="f-label">Phone Number</label>
+                    <input
+                      type="text"
+                      className="f-input"
+                      value={settingsForm.contactInfo_phone}
+                      onChange={(e) => setSettingsForm({ ...settingsForm, contactInfo_phone: e.target.value })}
+                    />
+                  </div>
+                  <div className="f-group">
+                    <label className="f-label">WhatsApp Link</label>
+                    <input
+                      type="text"
+                      className="f-input"
+                      value={settingsForm.contactInfo_whatsappUrl}
+                      onChange={(e) => setSettingsForm({ ...settingsForm, contactInfo_whatsappUrl: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <div className="f-group">
+                  <label className="f-label">Address</label>
+                  <input
+                    type="text"
+                    className="f-input"
+                    value={settingsForm.contactInfo_address}
+                    onChange={(e) => setSettingsForm({ ...settingsForm, contactInfo_address: e.target.value })}
+                  />
+                </div>
+                <div className="f-row">
+                  <div className="f-group">
+                    <label className="f-label">Instagram Handle</label>
+                    <input
+                      type="text"
+                      className="f-input"
+                      value={settingsForm.contactInfo_instagram}
+                      onChange={(e) => setSettingsForm({ ...settingsForm, contactInfo_instagram: e.target.value })}
+                    />
+                  </div>
+                  <div className="f-group">
+                    <label className="f-label">Instagram URL</label>
+                    <input
+                      type="text"
+                      className="f-input"
+                      value={settingsForm.contactInfo_instagramUrl}
+                      onChange={(e) => setSettingsForm({ ...settingsForm, contactInfo_instagramUrl: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <div className="f-group">
+                  <label className="f-label">Google Maps URL</label>
+                  <input
+                    type="text"
+                    className="f-input"
+                    value={settingsForm.contactInfo_mapUrl}
+                    onChange={(e) => setSettingsForm({ ...settingsForm, contactInfo_mapUrl: e.target.value })}
+                  />
+                </div>
+                <div className="f-group">
+                  <label className="f-label">Footer Brand Description</label>
+                  <textarea
+                    className="f-input"
+                    rows={2}
+                    value={settingsForm.footer_brandDesc}
+                    onChange={(e) => setSettingsForm({ ...settingsForm, footer_brandDesc: e.target.value })}
+                  />
+                </div>
+                <div className="f-group">
+                  <label className="f-label">Footer Copyright Text</label>
+                  <input
+                    type="text"
+                    className="f-input"
+                    value={settingsForm.footer_copy}
+                    onChange={(e) => setSettingsForm({ ...settingsForm, footer_copy: e.target.value })}
+                  />
+                </div>
+                <div className="f-row">
+                  <div className="f-group">
+                    <label className="f-label">Contact Section Eyebrow</label>
+                    <input
+                      type="text"
+                      className="f-input"
+                      value={settingsForm.contactOptions_eyebrow}
+                      onChange={(e) => setSettingsForm({ ...settingsForm, contactOptions_eyebrow: e.target.value })}
+                    />
+                  </div>
+                  <div className="f-group">
+                    <label className="f-label">Contact Section Title (HTML)</label>
+                    <input
+                      type="text"
+                      className="f-input"
+                      value={settingsForm.contactOptions_titleHtml}
+                      onChange={(e) => setSettingsForm({ ...settingsForm, contactOptions_titleHtml: e.target.value })}
+                    />
+                  </div>
+                </div>
+                <button type="submit" className="f-submit inline" disabled={actionLoading}>
+                  {actionLoading ? 'Saving...' : 'Update General Settings'}
                 </button>
               </form>
             </div>

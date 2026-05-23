@@ -24,6 +24,12 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Disable caching for dynamic API responses
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  next();
+});
+
 // Dynamic Public Routes
 app.get('/api/landing-data', getLandingPageData);
 app.post('/api/leads', createLead);

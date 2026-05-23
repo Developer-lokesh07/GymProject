@@ -1,11 +1,12 @@
 import React from 'react';
-import type { FooterData } from '../../types';
+import type { FooterData, ContactInfo } from '../../types';
 
 interface FooterProps {
   data: FooterData;
+  info: ContactInfo;
 }
 
-export const Footer: React.FC<FooterProps> = ({ data }) => {
+export const Footer: React.FC<FooterProps> = ({ data, info }) => {
   return (
     <footer aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
@@ -54,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({ data }) => {
           <div className="footer-copy">{data.copy}</div>
           <div className="social-row" aria-label="Social media links">
             <a
-              href="https://instagram.com/conqueror_fitness_hub"
+              href={info.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="soc-btn"
@@ -63,7 +64,7 @@ export const Footer: React.FC<FooterProps> = ({ data }) => {
               IG
             </a>
             <a
-              href="https://wa.me/918669084921"
+              href={info.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="soc-btn"
@@ -72,7 +73,7 @@ export const Footer: React.FC<FooterProps> = ({ data }) => {
               WA
             </a>
             <a
-              href="https://maps.app.goo.gl/Dt7G9R6vpVnsK47H9"
+              href={info.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="soc-btn"

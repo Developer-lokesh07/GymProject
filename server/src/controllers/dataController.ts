@@ -187,18 +187,50 @@ export async function getLandingPageData(req: Request, res: Response): Promise<v
 
     // 11. Fetch Contact Copy & Dropdowns
     const contactOptions = {
-      eyebrow: 'Get in Touch',
-      titleHtml: "Come Visit.<br><em>We'll Show You Around.</em>",
+      eyebrow: settingsMap.get('contactOptions_eyebrow') || 'Get in Touch',
+      titleHtml: settingsMap.get('contactOptions_titleHtml') || "Come Visit.<br><em>We'll Show You Around.</em>",
       formOptions: {
         batches: batches.map(b => `${b.name} (${b.time})`).concat('Either works'),
-        goals: [
-          'Weight Loss',
-          'Build Muscle',
-          'Improve Fitness & Stamina',
-          'Sports Performance',
-          'General Health & Wellbeing'
-        ]
+        goals: settingsMap.get('contactOptions_goals')
+          ? JSON.parse(settingsMap.get('contactOptions_goals')!)
+          : [
+              'Weight Loss',
+              'Build Muscle',
+              'Improve Fitness & Stamina',
+              'Sports Performance',
+              'General Health & Wellbeing'
+            ]
       }
+    };
+
+    // 12. Fetch Footer
+    const exploreLinks = settingsMap.get('footer_exploreLinks')
+      ? JSON.parse(settingsMap.get('footer_exploreLinks')!)
+      : [
+          { name: 'About Us', url: '#about' },
+          { name: 'Facilities', url: '#facilities' },
+          { name: 'Timings', url: '#timings' },
+          { name: 'Membership', url: '#pricing' },
+          { name: 'Reviews', url: '#reviews' }
+        ];
+
+    const programLinks = settingsMap.get('footer_programLinks')
+      ? JSON.parse(settingsMap.get('footer_programLinks')!)
+      : [
+          { name: 'Weight Loss', url: '#contact' },
+          { name: 'Muscle Building', url: '#contact' },
+          { name: 'Personal Training', url: '#contact' },
+          { name: 'Diet Consultation', url: '#contact' },
+          { name: 'Steam Therapy', url: '#contact' }
+        ];
+
+    const footer = {
+      brandDesc: settingsMap.get('footer_brandDesc') || 'Jalgaon\'s #1 premium fitness hub. Advanced equipment, certified trainers, fully AC with steam room — everything you need, all under one roof.',
+      links: {
+        'Explore': exploreLinks,
+        'Programs': programLinks
+      },
+      copy: settingsMap.get('footer_copy') || '© 2026 Conqueror Fitness Hub, Jalgaon. All rights reserved.'
     };
 
     // Construct the payload matching landingPageData.json structure
@@ -215,26 +247,7 @@ export async function getLandingPageData(req: Request, res: Response): Promise<v
       bmi,
       reviews,
       contactOptions,
-      footer: {
-        brandDesc: 'Jalgaon\'s #1 premium fitness hub. Advanced equipment, certified trainers, fully AC with steam room — everything you need, all under one roof.',
-        links: {
-          'Explore': [
-            { name: 'About Us', url: '#about' },
-            { name: 'Facilities', url: '#facilities' },
-            { name: 'Timings', url: '#timings' },
-            { name: 'Membership', url: '#pricing' },
-            { name: 'Reviews', url: '#reviews' }
-          ],
-          'Programs': [
-            { name: 'Weight Loss', url: '#contact' },
-            { name: 'Muscle Building', url: '#contact' },
-            { name: 'Personal Training', url: '#contact' },
-            { name: 'Diet Consultation', url: '#contact' },
-            { name: 'Steam Therapy', url: '#contact' }
-          ]
-        },
-        copy: '© 2026 Conqueror Fitness Hub, Jalgaon. All rights reserved.'
-      }
+      footer
     };
 
     res.json(payload);

@@ -82,7 +82,8 @@ export async function submitLead(formData: {
   saveLeadLocally(lead);
 
   // Step 2: Attempt backend sync (now fully integrated with MySQL backend)
-  const isTestEnv = typeof process !== 'undefined' && (process.env.NODE_ENV === 'test' || process.env.VITEST === 'true');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const isTestEnv = typeof (globalThis as any).vi !== 'undefined' || (import.meta as any).env?.MODE === 'test';
   if (isTestEnv) {
     return lead;
   }
