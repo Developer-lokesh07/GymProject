@@ -91,7 +91,7 @@ model Lead {
   email       String?
   
   status      String   @default("New") // New, Contacted, Converted, Lost
-  aiScore     Int      @default(0)     // AI calculated likelihood to convert
+  score       Int      @default(0)     // Lead priority score (0-100)
   
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

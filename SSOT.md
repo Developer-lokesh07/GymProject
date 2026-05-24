@@ -108,7 +108,7 @@ The platform is a **hybrid architecture** consisting of two integrated systems:
 - **Headless CMS Engine:** JSON block-based dynamic content rendering with versioning, approval workflows, and scheduled publishing
 - **Lead Capture & CRM Pipeline:** Multi-layer persistence (localStorage -> MySQL -> PostgreSQL) with async processing via BullMQ/Temporal
 - **Authorization System:** Fine-grained Policy-Based Access Control (PBAC) with hierarchical roles and tenant-scoped policies
-- **Membership Management:** Plan configuration, member tracking, and billing integration (future)
+- **Membership Management:** Plan configuration, member tracking, and billing integration (enterprise platform)
 
 ### 1.4 Supported User Types
 
@@ -2363,7 +2363,7 @@ LeadsService.submitLead()
     v
 1. INSERT lead into PostgreSQL (immediate)
 2. Queue jobs to BullMQ:
-   - 'process-new-lead' -> Lead enrichment and deduplication (future)
+   - 'process-new-lead' -> Lead enrichment and deduplication (enterprise platform)
    - 'send-notification' -> WhatsApp/Email notification
     |
     v
@@ -3727,10 +3727,10 @@ RETRIEVAL
 
 EXPIRATION
   JWT: configurable (default 7d)
-  No token refresh mechanism (future: refresh token rotation)
+  No token refresh mechanism (enterprise platform: refresh token rotation)
 
 DELETION
-  Not supported via API (future: user management)
+  Not supported via API (enterprise platform: user management)
   Cascade: deleting user cascades to user_roles, sessions
   Audit logs: ON DELETE SET NULL (preserves audit trail)
 ```
@@ -4209,6 +4209,7 @@ flowchart TB
     end
     
     subgraph "Next.js Layer"
+        NextJS[Next.js App Router]
         ISR[ISR Cache]
         RSC[React Server Components]
         CSR[Client Components]
