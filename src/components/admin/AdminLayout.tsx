@@ -1,5 +1,5 @@
 import React from 'react';
-import { clearAuthToken } from '../../services/adminService';
+import { logout } from '../../services/authService';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -14,15 +14,14 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
   setActiveTab,
   onLogout
 }) => {
-  const handleLogout = () => {
-    clearAuthToken();
+  const handleLogout = async () => {
+    await logout();
     onLogout();
   };
 
   const navItems = [
     { id: 'dashboard', label: '📊 Dashboard Overview' },
-    { id: 'leads', label: '📞 Enquiries & Leads' },
-    { id: 'content', label: '✏️ Landing Page CRUD' }
+    { id: 'leads', label: '📞 Enquiries & Leads' }
   ];
 
   return (
@@ -56,7 +55,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         <header className="admin-header">
           <div className="header-title">
             <h2>Welcome Back, Administrator</h2>
-            <p>You have full write-access to the live MySQL database configuration.</p>
+            <p>Manage enquiries, analytics, and operations.</p>
           </div>
           <div className="header-status">
             <span className="status-indicator"></span> Live MySQL Connected

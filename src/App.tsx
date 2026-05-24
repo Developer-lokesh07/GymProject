@@ -22,7 +22,12 @@ import { BmiCalculator } from './components/BmiCalculator';
 import { AdminLogin } from './components/admin/AdminLogin';
 import { AdminLayout } from './components/admin/AdminLayout';
 import { AdminDashboard } from './components/admin/AdminDashboard';
-import { isAuthenticated } from './services/adminService';
+import { isAuthenticated, hasRole } from './services/authService';
+
+// Developer Components
+import { DeveloperLogin } from './components/developer/DeveloperLogin';
+import { DeveloperLayout } from './components/developer/DeveloperLayout';
+import { DeveloperDashboard } from './components/developer/DeveloperDashboard';
 
 import pageData from './data/landingPageData.json';
 import type { LandingPageData } from './types';
@@ -43,8 +48,11 @@ function AppContent() {
   );
   const [loading, setLoading] = useState(!isTestEnv);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(isAuthenticated());
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(isAuthenticated() && hasRole('admin'));
   const [adminTab, setAdminTab] = useState('dashboard');
+
+  const [isDeveloperAuthenticated, setIsDeveloperAuthenticated] = useState(isAuthenticated() && hasRole('developer'));
+  const [developerTab, setDeveloperTab] = useState('dashboard');
 
   // Load landing page data dynamically from API (falls back to local JSON on fail)
   const fetchLandingData = async () => {
@@ -71,7 +79,8 @@ function AppContent() {
     // Listen to custom local history state navigation
     const handleLocationChange = () => {
       setCurrentPath(window.location.pathname);
-      setIsAdminAuthenticated(isAuthenticated());
+      setIsAdminAuthenticated(isAuthenticated() && hasRole('admin'));
+      setIsDeveloperAuthenticated(isAuthenticated() && hasRole('developer'));
     };
 
     window.addEventListener('popstate', handleLocationChange);
@@ -80,7 +89,7 @@ function AppContent() {
 
   // Setup scroll reveals
   useEffect(() => {
-    if (loading || !landingData || currentPath === '/admin') return;
+    if (loading || !landingData || currentPath === '/admin' || currentPath === '/developer') return;
 
     const reveals = document.querySelectorAll('.reveal');
     const revealOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
@@ -113,9 +122,17 @@ function AppContent() {
 
   const handleAdminLogout = () => {
     setIsAdminAuthenticated(false);
+    window.location.href = '/';
   };
 
+  const handleDeveloperLoginSuccess = () => {
+    setIsDeveloperAuthenticated(true);
+  };
 
+  const handleDeveloperLogout = () => {
+    setIsDeveloperAuthenticated(false);
+    window.location.href = '/';
+  };
 
   // 1. Rendering Loader State
   if (loading) {
@@ -156,10 +173,33 @@ function AppContent() {
             onLogout={handleAdminLogout}
           >
             <AdminDashboard
-              initialLandingPageData={landingData}
-              onRefreshLandingPage={fetchLandingData}
+              activeTab={adminTab}
+              setActiveTab={setAdminTab}
             />
           </AdminLayout>
+        )}
+      </>
+    );
+  }
+
+  // 3. Rendering Developer Portal
+  if (currentPath === '/developer') {
+    return (
+      <>
+        <ToastContainer toasts={toasts} onDismiss={dismissToast} />
+        {!isDeveloperAuthenticated ? (
+          <DeveloperLogin onLoginSuccess={handleDeveloperLoginSuccess} />
+        ) : (
+          <DeveloperLayout
+            activeTab={developerTab}
+            setActiveTab={setDeveloperTab}
+            onLogout={handleDeveloperLogout}
+          >
+            <DeveloperDashboard
+              activeTab={developerTab}
+              setActiveTab={setDeveloperTab}
+            />
+          </DeveloperLayout>
         )}
       </>
     );

@@ -114,8 +114,8 @@ export async function getLandingPageData(req: Request, res: Response): Promise<v
       badge: f.badge
     }));
     const facilities = {
-      eyebrow: 'What We Offer',
-      titleHtml: 'World-Class<br><em>Facilities.</em>',
+      eyebrow: settingsMap.get('facilities_eyebrow') || 'What We Offer',
+      titleHtml: settingsMap.get('facilities_titleHtml') || 'World-Class<br><em>Facilities.</em>',
       items: facilitiesList
     };
 
@@ -191,6 +191,7 @@ export async function getLandingPageData(req: Request, res: Response): Promise<v
       titleHtml: settingsMap.get('contactOptions_titleHtml') || "Come Visit.<br><em>We'll Show You Around.</em>",
       formOptions: {
         batches: batches.map(b => `${b.name} (${b.time})`).concat('Either works'),
+        plans: formattedPlans.map(p => p.value).concat('Free Trial First'),
         goals: settingsMap.get('contactOptions_goals')
           ? JSON.parse(settingsMap.get('contactOptions_goals')!)
           : [
@@ -257,72 +258,3 @@ export async function getLandingPageData(req: Request, res: Response): Promise<v
   }
 }
 
-// Administrative CRUD endpoints to dynamically update any section content
-export async function updateSectionData(req: Request, res: Response): Promise<void> {
-  const { section } = req.params;
-  const data = req.body;
-
-  if (!data) {
-    res.status(400).json({ error: 'No update data provided.' });
-    return;
-  }
-
-  try {
-    switch (section) {
-      case 'settings':
-        for (const [key, val] of Object.entries(data)) {
-          await pool.query(
-            'INSERT INTO site_settings (setting_key, setting_value, category) VALUES (?, ?, "custom") ON DUPLICATE KEY UPDATE setting_value = ?',
-            [key, val, val]
-          );
-        }
-        break;
-
-      case 'hero':
-        await pool.query(
-          `UPDATE hero SET eyebrow = ?, subtitle = ?, title_line1 = ?, title_line2 = ?, title_line3 = ?, badge_rating = ?, badge_stars = ?, badge_text = ? WHERE id = 1`,
-          [
-            data.eyebrow,
-            data.subtitle,
-            data.titleLines?.[0] || '',
-            data.titleLines?.[1] || '',
-            data.titleLines?.[2] || '',
-            data.badge?.rating || '',
-            data.badge?.stars || '',
-            data.badge?.text || ''
-          ]
-        );
-        break;
-
-      case 'about':
-        await pool.query(
-          'UPDATE about SET eyebrow = ?, title_html = ?, badge_rating = ?, badge_text = ? WHERE id = 1',
-          [data.eyebrow, data.titleHtml, data.badge?.rating || '', data.badge?.text || '']
-        );
-        break;
-
-      case 'timings':
-        await pool.query(
-          'UPDATE timings SET eyebrow = ?, title_html = ?, description = ?, closed_note = ? WHERE id = 1',
-          [data.eyebrow, data.titleHtml, data.description, data.closedNote]
-        );
-        break;
-
-      case 'pricing':
-        await pool.query(
-          'UPDATE pricing SET eyebrow = ?, title_html = ?, subtitle = ? WHERE id = 1',
-          [data.eyebrow, data.titleHtml, data.subtitle]
-        );
-        break;
-
-      default:
-        res.status(400).json({ error: `Section "${section}" is either read-only or invalid.` });
-        return;
-    }
-
-    res.json({ message: `Successfully updated section "${section}".` });
-  } catch (error) {
-    console.error(`Error updating section "${section}":`, error);
-    res.status(500).json({ error: `Internal database error during update of section "${section}".` });
-  }
-}

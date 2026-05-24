@@ -49,19 +49,116 @@ async function seed() {
   // 4. Seed Default Admin User
   console.log('👤 Seeding default admin user...');
   const [users] = await connection.query('SELECT * FROM users WHERE username = ?', ['admin']);
+  let adminUserId: number;
   if ((users as any[]).length === 0) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash('adminpassword', salt);
-    await connection.query(
+    const [result] = await connection.query(
       'INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)',
       ['admin', hashedPassword, 'admin@conquerorfitness.com', 'admin']
     );
+    adminUserId = (result as any).insertId;
     console.log('✅ Admin user created! Username: "admin", Password: "adminpassword"');
   } else {
+    adminUserId = (users as any[])[0].id;
     console.log('ℹ️ Admin user already exists. Skipping...');
   }
 
-  // 5. Seed Site Settings (meta & contact info)
+  // 5. Seed Developer User
+  console.log('👨‍💻 Seeding default developer user...');
+  const [devUsers] = await connection.query('SELECT * FROM users WHERE username = ?', ['developer']);
+  let devUserId: number;
+  if ((devUsers as any[]).length === 0) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash('devpassword', salt);
+    const [result] = await connection.query(
+      'INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)',
+      ['developer', hashedPassword, 'dev@conquerorfitness.com', 'developer']
+    );
+    devUserId = (result as any).insertId;
+    console.log('✅ Developer user created! Username: "developer", Password: "devpassword"');
+  } else {
+    devUserId = (devUsers as any[])[0].id;
+    console.log('ℹ️ Developer user already exists. Skipping...');
+  }
+
+  // 6. Seed RBAC Roles
+  console.log('🔐 Seeding RBAC roles...');
+  await connection.query('DELETE FROM role_permissions');
+  await connection.query('DELETE FROM user_roles');
+  await connection.query('DELETE FROM permissions');
+  await connection.query('DELETE FROM roles');
+
+  const [adminRoleResult] = await connection.query(
+    'INSERT INTO roles (name, description) VALUES (?, ?)',
+    ['admin', 'Operational administrator — manages leads, analytics, and users']
+  );
+  const adminRoleId = (adminRoleResult as any).insertId;
+
+  const [devRoleResult] = await connection.query(
+    'INSERT INTO roles (name, description) VALUES (?, ?)',
+    ['developer', 'Website developer — manages CMS content, SEO, settings, and media']
+  );
+  const devRoleId = (devRoleResult as any).insertId;
+
+  // 7. Seed Permissions
+  console.log('🔑 Seeding permissions...');
+  const permissionDefs = [
+    // Admin permissions
+    { name: 'leads.read', desc: 'View lead enquiries', resource: 'leads', action: 'read' },
+    { name: 'leads.delete', desc: 'Delete lead enquiries', resource: 'leads', action: 'delete' },
+    { name: 'analytics.read', desc: 'View dashboard analytics', resource: 'analytics', action: 'read' },
+    { name: 'users.manage', desc: 'Manage user accounts', resource: 'users', action: 'manage' },
+    // Developer permissions
+    { name: 'cms.read', desc: 'Read CMS content sections', resource: 'cms', action: 'read' },
+    { name: 'cms.write', desc: 'Write/update CMS content sections', resource: 'cms', action: 'write' },
+    { name: 'settings.read', desc: 'Read site settings', resource: 'settings', action: 'read' },
+    { name: 'settings.write', desc: 'Update site settings', resource: 'settings', action: 'write' },
+    { name: 'seo.manage', desc: 'Manage SEO metadata', resource: 'seo', action: 'manage' },
+    { name: 'media.manage', desc: 'Manage media assets', resource: 'media', action: 'manage' },
+    { name: 'audit.read', desc: 'View audit logs', resource: 'audit', action: 'read' },
+  ];
+
+  const permIds: Record<string, number> = {};
+  for (const p of permissionDefs) {
+    const [result] = await connection.query(
+      'INSERT INTO permissions (name, description, resource, action) VALUES (?, ?, ?, ?)',
+      [p.name, p.desc, p.resource, p.action]
+    );
+    permIds[p.name] = (result as any).insertId;
+  }
+
+  // 8. Map Permissions to Roles
+  console.log('🔗 Mapping permissions to roles...');
+  const adminPermissions = ['leads.read', 'leads.delete', 'analytics.read', 'users.manage'];
+  const devPermissions = ['cms.read', 'cms.write', 'settings.read', 'settings.write', 'seo.manage', 'media.manage', 'audit.read'];
+
+  for (const pName of adminPermissions) {
+    await connection.query(
+      'INSERT INTO role_permissions (role_id, permission_id) VALUES (?, ?)',
+      [adminRoleId, permIds[pName]]
+    );
+  }
+
+  for (const pName of devPermissions) {
+    await connection.query(
+      'INSERT INTO role_permissions (role_id, permission_id) VALUES (?, ?)',
+      [devRoleId, permIds[pName]]
+    );
+  }
+
+  // 9. Assign Roles to Users
+  console.log('👥 Assigning roles to users...');
+  await connection.query(
+    'INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)',
+    [adminUserId, adminRoleId]
+  );
+  await connection.query(
+    'INSERT INTO user_roles (user_id, role_id) VALUES (?, ?)',
+    [devUserId, devRoleId]
+  );
+
+  // 10. Seed Site Settings (meta & contact info)
   console.log('⚙️ Seeding site settings...');
   await connection.query('DELETE FROM site_settings;');
   const settings = [
@@ -77,6 +174,8 @@ async function seed() {
     { key: 'contactOptions_eyebrow', val: pageData.contactOptions.eyebrow, cat: 'contactOptions' },
     { key: 'contactOptions_titleHtml', val: pageData.contactOptions.titleHtml, cat: 'contactOptions' },
     { key: 'contactOptions_goals', val: JSON.stringify(pageData.contactOptions.formOptions.goals), cat: 'contactOptions' },
+    { key: 'facilities_eyebrow', val: pageData.facilities.eyebrow, cat: 'facilities' },
+    { key: 'facilities_titleHtml', val: pageData.facilities.titleHtml, cat: 'facilities' },
     { key: 'footer_brandDesc', val: pageData.footer.brandDesc, cat: 'footer' },
     { key: 'footer_copy', val: pageData.footer.copy, cat: 'footer' },
     { key: 'footer_exploreLinks', val: JSON.stringify(pageData.footer.links.Explore), cat: 'footer' },
@@ -89,7 +188,7 @@ async function seed() {
     );
   }
 
-  // 6. Seed Hero Details
+  // 11. Seed Hero Details
   console.log('⚡ Seeding Hero section...');
   await connection.query('DELETE FROM hero;');
   await connection.query(
@@ -108,7 +207,7 @@ async function seed() {
     ]
   );
 
-  // 7. Seed Hero Stats
+  // 12. Seed Hero Stats
   await connection.query('DELETE FROM hero_stats;');
   for (let i = 0; i < pageData.hero.stats.length; i++) {
     const s = pageData.hero.stats[i];
@@ -118,7 +217,7 @@ async function seed() {
     );
   }
 
-  // 8. Seed Marquee
+  // 13. Seed Marquee
   console.log('🎗️ Seeding Marquee item list...');
   await connection.query('DELETE FROM marquee;');
   for (let i = 0; i < pageData.marquee.length; i++) {
@@ -128,7 +227,7 @@ async function seed() {
     );
   }
 
-  // 9. Seed Stats Banner
+  // 14. Seed Stats Banner
   console.log('📊 Seeding Stats banner metrics...');
   await connection.query('DELETE FROM stats_banner;');
   for (let i = 0; i < pageData.statsBanner.length; i++) {
@@ -139,7 +238,7 @@ async function seed() {
     );
   }
 
-  // 10. Seed About Section
+  // 15. Seed About Section
   console.log('💪 Seeding About section details...');
   await connection.query('DELETE FROM about;');
   await connection.query(
@@ -164,7 +263,7 @@ async function seed() {
     );
   }
 
-  // 11. Seed Timings Section
+  // 16. Seed Timings Section
   console.log('⏰ Seeding Timings & Batches details...');
   await connection.query('DELETE FROM timings;');
   await connection.query(
@@ -181,7 +280,7 @@ async function seed() {
     );
   }
 
-  // 12. Seed Facilities
+  // 17. Seed Facilities
   console.log('🏢 Seeding Facility offers...');
   await connection.query('DELETE FROM facilities;');
   for (let i = 0; i < pageData.facilities.items.length; i++) {
@@ -192,7 +291,7 @@ async function seed() {
     );
   }
 
-  // 13. Seed Pricing Section & Plans
+  // 18. Seed Pricing Section & Plans
   console.log('💳 Seeding Pricing & Membership plans...');
   await connection.query('DELETE FROM pricing;');
   await connection.query(
@@ -220,7 +319,7 @@ async function seed() {
     }
   }
 
-  // 14. Seed BMI Copy
+  // 19. Seed BMI Copy
   console.log('🧮 Seeding BMI Section copy...');
   await connection.query('DELETE FROM bmi_info;');
   await connection.query(
@@ -228,7 +327,7 @@ async function seed() {
     [1, pageData.bmi.eyebrow, pageData.bmi.titleHtml, pageData.bmi.description]
   );
 
-  // 15. Seed Reviews Info & reviews
+  // 20. Seed Reviews Info & reviews
   console.log('⭐ Seeding Member reviews...');
   await connection.query('DELETE FROM reviews_info;');
   await connection.query(
@@ -253,8 +352,22 @@ async function seed() {
     );
   }
 
+  // 21. Seed initial audit log entry
+  console.log('📋 Seeding initial audit log...');
+  await connection.query('DELETE FROM audit_logs;');
+  await connection.query(
+    `INSERT INTO audit_logs (user_id, username, action, resource, details, ip_address) VALUES (?, ?, ?, ?, ?, ?)`,
+    [adminUserId, 'admin', 'system.seed', 'database', 'Initial database seeding completed', '127.0.0.1']
+  );
+
   await connection.end();
+  console.log('');
   console.log('🎉 Seeding completed successfully!');
+  console.log('');
+  console.log('📋 Default Credentials:');
+  console.log('   Admin:     username="admin"     password="adminpassword"');
+  console.log('   Developer: username="developer"  password="devpassword"');
+  console.log('');
 }
 
 seed().catch(err => {

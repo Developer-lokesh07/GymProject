@@ -314,6 +314,13 @@
         "Evening (4PM–9PM)",
         "Either works"
       ],
+      "plans": [
+        "Basic – ₹800/mo",
+        "Premium – ₹1,200/mo",
+        "Quarterly – ₹3,200",
+        "Annual – ₹9,500",
+        "Free Trial First"
+      ],
       "goals": [
         "Weight Loss",
         "Build Muscle",

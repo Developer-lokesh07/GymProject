@@ -108,9 +108,12 @@ export async function submitLead(formData: {
 /**
  * Build the WhatsApp message URL for a lead
  */
-export function buildWhatsAppUrl(lead: LeadData): string {
+export function buildWhatsAppUrl(lead: LeadData, baseUrl: string): string {
   const waMsg = encodeURIComponent(
     `Hi, I just submitted an enquiry on your website!\n\nName: ${lead.firstName} ${lead.lastName}\nPhone: ${lead.phone}\nPlan: ${lead.plan || 'Not selected'}\nBatch: ${lead.batch || 'Not selected'}\nGoal: ${lead.goal || 'Not specified'}${lead.message ? '\nMessage: ' + lead.message : ''}\n\nRef: ${lead.id}`,
   );
-  return `https://wa.me/918669084921?text=${waMsg}`;
+  
+  // Ensure we don't double up on the '?' if the baseUrl already has parameters
+  const separator = baseUrl.includes('?') ? '&' : '?';
+  return `${baseUrl}${separator}text=${waMsg}`;
 }

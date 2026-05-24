@@ -101,7 +101,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               Refresh Page
             </button>
             <a
-              href="https://wa.me/918669084921"
+              href="https://wa.me/919370527547"
               target="_blank"
               rel="noopener noreferrer"
               style={{

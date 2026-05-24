@@ -1,0 +1,116 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// -----------------------------------------
+// Global Multi-Tenancy Core
+// -----------------------------------------
+
+model Tenant {
+  id          String   @id @default(uuid())
+  name        String
+  domain      String   @unique
+  status      String   @default("active") // active, suspended, deleted
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users       User[]
+  cmsPages    CmsPage[]
+  leads       Lead[]
+  auditLogs   AuditLog[]
+}
+
+// -----------------------------------------
+// Authentication & RBAC
+// -----------------------------------------
+
+model User {
+  id           String   @id @default(uuid())
+  tenantId     String
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
+  
+  email        String   
+  passwordHash String
+  role         String   @default("Trainer") // SuperAdmin, TenantOwner, GymManager, Trainer
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([tenantId, email])
+}
+
+// -----------------------------------------
+// Headless CMS (Versioning & Drafts)
+// -----------------------------------------
+
+model CmsPage {
+  id          String   @id @default(uuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+
+  slug        String
+  title       String
+  isPublished Boolean  @default(false)
+  
+  revisions   CmsRevision[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([tenantId, slug])
+}
+
+model CmsRevision {
+  id          String   @id @default(uuid())
+  pageId      String
+  page        CmsPage  @relation(fields: [pageId], references: [id])
+  
+  content     Json     // Stores Hero, Pricing, About blocks dynamically
+  authorId    String
+  
+  createdAt   DateTime @default(now())
+}
+
+// -----------------------------------------
+// Lead CRM & Automation
+// -----------------------------------------
+
+model Lead {
+  id          String   @id @default(uuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  
+  firstName   String
+  lastName    String?
+  phone       String
+  email       String?
+  
+  status      String   @default("New") // New, Contacted, Converted, Lost
+  aiScore     Int      @default(0)     // AI calculated likelihood to convert
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// -----------------------------------------
+// Audit & Observability
+// -----------------------------------------
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  
+  actorId     String   // User who performed the action
+  action      String   // e.g. "UPDATE_LEAD", "PUBLISH_CMS"
+  resource    String   // Table or Entity name
+  diff        Json     // JSON diff of what changed
+  ipAddress   String?
+  
+  timestamp   DateTime @default(now())
+}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from 'react';
-import { loginAdmin, isAuthenticated } from '../../services/adminService';
+import { login, isAuthenticated, hasRole } from '../../services/authService';
 
 interface AdminLoginProps {
   onLoginSuccess: () => void;
@@ -13,7 +13,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated()) {
+    if (isAuthenticated() && hasRole('admin')) {
       onLoginSuccess();
     }
   }, [onLoginSuccess]);
@@ -29,7 +29,11 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
     setLoading(true);
 
     try {
-      await loginAdmin({ username, password });
+      const data = await login({ username, password });
+      if (data.user.role !== 'admin') {
+        setError('Access denied. This portal is for admin accounts only.');
+        return;
+      }
       onLoginSuccess();
     } catch (err: any) {
       setError(err.message || 'Login failed. Please check credentials.');
@@ -47,7 +51,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
             CONQUEROR<span className="dot"></span>
           </div>
           <h3>Admin Control Center</h3>
-          <p>Sign in to manage members, timing schedules, plans, and enquiries.</p>
+          <p>Sign in to manage enquiries, analytics, and operations.</p>
         </div>
 
         {error && (
@@ -97,7 +101,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onLoginSuccess }) => {
         </form>
 
         <div className="login-footer">
-          🔒 Encrypted JWT Session & Secure Password Hashing
+          🔒 Encrypted JWT Session & RBAC Authorization
         </div>
       </div>
     </div>

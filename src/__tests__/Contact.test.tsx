@@ -9,13 +9,20 @@ const mockContactData: ContactData = {
   titleHtml: "Come Visit.<br><em>We'll Show You Around.</em>",
   formOptions: {
     batches: ['Morning (5AM–11AM)', 'Evening (4PM–9PM)', 'Either works'],
+    plans: [
+      'Basic – ₹800/mo',
+      'Premium – ₹1,200/mo',
+      'Quarterly – ₹3,200',
+      'Annual – ₹9,500',
+      'Free Trial First',
+    ],
     goals: ['Weight Loss', 'Build Muscle', 'Improve Fitness & Stamina'],
   },
 };
 
 const mockContactInfo: ContactInfo = {
   phone: '+91 86690 84921',
-  whatsappUrl: 'https://wa.me/918669084921',
+  whatsappUrl: 'https://wa.me/919370527547',
   address:
     'Madhuvimal Plaza, 2nd Floor, Opp. Dadawadi Temple (Dalchini Hotel), Dadawadi, Jalgaon — 425001, MH',
   instagram: '@conqueror_fitness_hub',

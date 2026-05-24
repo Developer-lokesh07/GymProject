@@ -92,7 +92,7 @@ export const Contact: React.FC<ContactProps> = ({ data, info, initialPlan = '', 
         message: formData.message.trim(),
       });
 
-      const url = buildWhatsAppUrl(lead);
+      const url = buildWhatsAppUrl(lead, info.whatsappUrl);
       setWaUrl(url);
       setSubmitted(true);
       onToast?.('Enquiry saved successfully! Your details are safe with us.', 'success');
@@ -285,11 +285,11 @@ export const Contact: React.FC<ContactProps> = ({ data, info, initialPlan = '', 
                     aria-label="Select membership plan"
                   >
                     <option value="">Select a plan</option>
-                    <option value="Basic – ₹800/mo">Basic – ₹800/mo</option>
-                    <option value="Premium – ₹1,200/mo">Premium – ₹1,200/mo</option>
-                    <option value="Quarterly – ₹3,200">Quarterly – ₹3,200</option>
-                    <option value="Annual – ₹9,500">Annual – ₹9,500</option>
-                    <option value="Free Trial First">Free Trial First</option>
+                    {data.formOptions.plans.map((p) => (
+                      <option key={p} value={p}>
+                        {p}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="f-group">

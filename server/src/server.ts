@@ -3,10 +3,19 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { testConnection } from './config/db.js';
-import { login, getProfile } from './controllers/authController.js';
-import { getLandingPageData, updateSectionData } from './controllers/dataController.js';
+import { login, logout, getProfile } from './controllers/authController.js';
+import { getLandingPageData } from './controllers/dataController.js';
 import { createLead, getAllLeads, deleteLead } from './controllers/leadController.js';
-import { authMiddleware } from './middleware/auth.js';
+import {
+  getSections,
+  updateSection,
+  getSettings,
+  updateSettings,
+  getAuditLogs,
+  getAdminStats
+} from './controllers/developerController.js';
+import { authMiddleware, requireRole } from './middleware/auth.js';
+import { loginRateLimiter } from './middleware/rateLimiter.js';
 
 // Load environment variables
 dotenv.config();
@@ -30,22 +39,38 @@ app.use((req, res, next) => {
   next();
 });
 
-// Dynamic Public Routes
+// ============================================
+// Public Routes (No Auth Required)
+// ============================================
 app.get('/api/landing-data', getLandingPageData);
 app.post('/api/leads', createLead);
 
-// Admin Auth Routes
-app.post('/api/admin/login', login);
-app.get('/api/admin/profile', authMiddleware, getProfile);
+// ============================================
+// Auth Routes (Shared by Admin & Developer)
+// ============================================
+app.post('/api/auth/login', loginRateLimiter, login);
+app.post('/api/auth/logout', authMiddleware, logout);
+app.get('/api/auth/profile', authMiddleware, getProfile);
 
-// Admin Protected Enquiries Routes
-app.get('/api/admin/leads', authMiddleware, getAllLeads);
-app.delete('/api/admin/leads/:id', authMiddleware, deleteLead);
+// ============================================
+// Admin-Only Routes (requireRole('admin'))
+// ============================================
+app.get('/api/admin/leads', authMiddleware, requireRole('admin'), getAllLeads);
+app.delete('/api/admin/leads/:id', authMiddleware, requireRole('admin'), deleteLead);
+app.get('/api/admin/stats', authMiddleware, requireRole('admin'), getAdminStats);
 
-// Admin Protected Content CRUD Routes
-app.put('/api/admin/sections/:section', authMiddleware, updateSectionData);
+// ============================================
+// Developer-Only Routes (requireRole('developer'))
+// ============================================
+app.get('/api/developer/sections', authMiddleware, requireRole('developer'), getSections);
+app.put('/api/developer/sections/:section', authMiddleware, requireRole('developer'), updateSection);
+app.get('/api/developer/settings', authMiddleware, requireRole('developer'), getSettings);
+app.put('/api/developer/settings', authMiddleware, requireRole('developer'), updateSettings);
+app.get('/api/developer/audit-logs', authMiddleware, requireRole('developer'), getAuditLogs);
 
-// Health check endpoint
+// ============================================
+// Health Check
+// ============================================
 app.get('/api/health', async (req, res) => {
   const isDbConnected = await testConnection();
   res.json({
@@ -72,6 +97,12 @@ async function startServer() {
 
   app.listen(PORT, () => {
     console.log(`🚀 Express API server running on http://localhost:${PORT}`);
+    console.log('');
+    console.log('📋 Route Groups:');
+    console.log('   Public:    GET /api/landing-data, POST /api/leads');
+    console.log('   Auth:      POST /api/auth/login, POST /api/auth/logout, GET /api/auth/profile');
+    console.log('   Admin:     GET /api/admin/leads, DELETE /api/admin/leads/:id, GET /api/admin/stats');
+    console.log('   Developer: GET/PUT /api/developer/sections, GET/PUT /api/developer/settings, GET /api/developer/audit-logs');
   });
 }
 

@@ -115,6 +115,7 @@ export interface ContactData {
   formOptions: {
     batches: string[];
     goals: string[];
+    plans: string[];
   };
 }
 
